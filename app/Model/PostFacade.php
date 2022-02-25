@@ -59,4 +59,20 @@ final class PostFacade
 			->insert($data);
 		return $post;
 	}
+	public function addView(int $postId) {
+		$currentViews = $this->database
+		->table('posts')
+		->get($postId)
+		->views_count;
+		$currentViews++;
+
+
+		bdump($currentViews);
+		$data['views_count'] =
+		$currentViews;
+		$this->database
+			 ->table('posts')
+			 ->get($postId)
+			 ->update($data);
+	}
 }
