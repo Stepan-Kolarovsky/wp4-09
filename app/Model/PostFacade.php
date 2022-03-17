@@ -44,7 +44,7 @@ final class PostFacade
 			'content' => $data->content,
 		]);
 	}
-	public function editPost(int $postId, \stdClass $data)
+	public function editPost(int $postId, $data)
 	{
 		$post = $this->database
 			->table('posts')
@@ -52,7 +52,7 @@ final class PostFacade
 		$post->update($data);
 		return $post;
 	}
-	public function insertPost(\stdClass $data)
+	public function insertPost($data)
 	{
 		$post = $this->database
 			->table('posts')
@@ -75,4 +75,5 @@ final class PostFacade
 			 ->get($postId)
 			 ->update($data);
 	}
+	
 }
