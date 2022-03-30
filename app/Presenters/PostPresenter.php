@@ -17,9 +17,13 @@ final class PostPresenter extends Nette\Application\UI\Presenter
     {
 		$post=$this->facade->getPostbyID ($postId);
         if ($post->status=='ARCHIVED'&&!$this->getUser()->isLoggedIn()) {
-	        $this->redirect('Homepage:');
+	        $this->redirect('Sign:in');
 			$this->flashMessage('Nemáš právo vidět archived, kámo!');}
     }
+	public function handleLike(int $like, int $postId) {
+		
+	
+	}
 	public function renderShow(int $postId): void
     {
 		$this->facade->addView($postId);

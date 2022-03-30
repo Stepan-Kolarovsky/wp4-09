@@ -75,5 +75,21 @@ final class PostFacade
 			 ->get($postId)
 			 ->update($data);
 	}
+	public function addLike(int $postId) {
+		$currentLikes = $this->database
+		->table('posts')
+		->get($postId)
+		->likes;
+		$currentLikes++;
+
+
+		bdump($currentLikes);
+		$data['likes'] =
+		$currentLikes;
+		$this->database
+			 ->table('posts')
+			 ->get($postId)
+			 ->update($data);
+	}
 	
 }
