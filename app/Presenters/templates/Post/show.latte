@@ -3,9 +3,12 @@
 
 <div class="date">{$post->created_at|date:'F j, Y'}</div>
 <div>Status: {$post->status}</div>
-<a class="btn-success btn-sm" n:href="like! 1, $post->id"  n:if="$user->isLoggedIn()">LIKE</a>
-<a class="btn-danger btn-sm" n:href="like! 0, $post->id"  n:if="$user->isLoggedIn()">DISLIKE</a>
+{if $user->isLoggedIn()}
+{dump $like}
 
+<a n:href="like! $post->id,1" class="btn btn-{if $like == 0}outline-{/if}success">Líbí</a>
+<a n:href="like! $post->id,0" class="btn btn-{if $like == 1}outline-{/if}danger">Nelíbí</a>
+{/if}
 <h1 n:block="title">{$post->title}</h1>
 
 <div>Views: {$post->views_count|truncate:256}</div>

@@ -94,16 +94,24 @@ final class PostFacade
                 ->insert([
                     'user_id' => $userId,
                     'post_id' => $postId,
-                    'like' => $like
+                    'like_value' => $like
                 ]);
         }
     }
-	public function getLike(int $userId, int $postId) {
-		$ratingRow = $this->database
-			->table('rating')
-			->get([
-				'user_id' => $userId,
-				'post_id' => $postId,
-			]);}
-	
+    public function getUserRating(int $postId, int $userId)
+	{
+		$like = $this->database
+            ->table('rating')
+            ->where([
+                'user_id' => $userId,
+                'post_id' => $postId,
+        ]);
+
+        if($like->count() == 0) {
+            return null;
+        }
+
+        return $like->fetch()->like_value;
+
+	}
 }

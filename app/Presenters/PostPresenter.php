@@ -24,7 +24,7 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 			$this->flashMessage('Nemáš právo vidět archived, kámo!');
 		}
 	}
-	public function handleLike(int $like, int $postId)
+	public function handleLike(int $postId, int $like )
 	{
 		$userId = $this->getUser()->getId();
 		$this->facade->updateRating($userId, $postId, $like);
@@ -35,14 +35,13 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 		$this->facade->addView($postId);
 
 		$post = $this->facade->getPostbyID($postId);
-		$like = $this->facade->getLike($postId, $this->getUser()->id);
-
+        $like = $this->facade->getUserRating($postId, $this->getUser()->getId());
 
 
 		if (!$post) {
 			$this->error('Stránka nebyla nalezena');
 		}
-
+        $this->template->like = $like;
 		$this->template->post = $post;
 		$this->template->comments = $this->facade->getComments($postId);
 	}
