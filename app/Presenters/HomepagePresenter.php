@@ -17,9 +17,14 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		$this->facade = $facade;
 		$this->userFacade = $userFacade;
 	}
-
+	
+	public function handleShowRandomNumber(){
+       $this->template->number = rand(1,100);
+	   $this->redrawControl('randomNumber');
+	}
 	public function renderDefault(): void
 	{
+		$this->template->refreshNumber = rand(1,55);
 		$this->template->posts = $this->facade
 			->getPublicArticles()
 			->limit(5);

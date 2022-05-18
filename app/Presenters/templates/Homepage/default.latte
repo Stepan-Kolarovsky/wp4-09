@@ -2,7 +2,7 @@
 	
 	<h1 n:block="title">Můj blog</h1>
 	<a n:href="Edit:create" class="btn btn-outline-warning" n:if="$user->isLoggedIn()">Vytvořit příspěvek</a>
-    <div class="row">
+		<div class="row">
 	{foreach $posts as $post}
     {if $post->status !='ARCHIVED'}
 	<div class="post col-6 col-sm-6 col-md-4 mb-3">
@@ -12,6 +12,7 @@
 		<div class="date">{$post->created_at|date:'F j, Y'}</div>
 		<h2><a n:href="Post:show $post->id">{$post->title}</a></h2>
 		<div>{$post->content|truncate:256}</div>
+		<div>Kategorie: {$post->category->name}</div>
 		
 		{if $post->image}
         <img class="img-fluid" src="{$basePath}/{$post->image}">

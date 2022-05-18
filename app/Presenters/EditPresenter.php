@@ -32,6 +32,8 @@ final class EditPresenter extends Nette\Application\UI\Presenter
 	
 		$form->addSelect('status','Stav', $statuses)
 	     ->setDefaultValue('OPEN');
+	$categories = $this->facade->getCategories();
+	$form->addSelect('category_id','kategorie', $categories);
 	$form->addSubmit('send', 'Uložit a publikovat');
 	$form->onSuccess[] = [$this, 'postFormSucceeded'];
 
@@ -61,7 +63,7 @@ public function handleDeleteImage(int $postId)
 {
 	$data['image'] = null;
 	$post=$this->facade->editPost($postId, (array) $data);
-    //$this->redirect('Post:show', $postId);
+    $this->redrawControl('imageSnippet');
 }
 
 

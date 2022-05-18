@@ -114,4 +114,11 @@ final class PostFacade
         return $like->fetch()->like_value;
 
 	}
+	public function getcategories()
+	{
+		return $this->database
+			->table('categories')
+			->fetchPairs('id', 'name');
+		$this->template->categories = $this->database;
+	}
 }

@@ -24,6 +24,13 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 			$this->flashMessage('Nemáš právo vidět archived, kámo!');
 		}
 	}
+	public function redrawControl(?string $snippet = null, bool $redraw = true): void
+	{
+		$this->invalidateControl($snippet);
+		if ($redraw) {
+			$this->redrawControl();
+		} 	
+	}
 	public function handleLike(int $postId, int $like )
 	{
 		$userId = $this->getUser()->getId();
@@ -58,15 +65,19 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 			->setRequired();
 
 		$form->addSubmit('send', 'Publikovat komentář');
+        
+		$form->onSuccess[] = [$this, 'commentFormSucceeded'];
 
 		return $form;
+		
 	}
+public function commentFormSucceeded(\stdClass $data): void
+{
+	$postId = $this->getParameter('postId');
 
-	public function commentFormSucceeded(\stdClass $data): void
-	{
-		$postId = $this->getParameter('postId');
-		$this->facade->addComment($postId, $data);
-		$this->flashMessage('Děkuji za komentář', 'success');
-		$this->redirect('this');
-	}
+	$this->facade->addComment($postId, $data);
+
+	$this->flashMessage('Děkuji za komentář', 'success');
+	$this->redirect('this');	
+}
 }

@@ -83,10 +83,17 @@ final class UserFacade implements Nette\Security\Authenticator
 			throw new DuplicateNameException;
 		}
 	}
+
+public function update(int $userId, \stdClass $data): void
+{
+	$this->database->table(self::TABLE_NAME)->get(['id' => $userId])->update([
+		self::COLUMN_NAME => $data->username,
+		self::COLUMN_EMAIL => $data->email,
+	]);	
 }
-
-
+}
 
 class DuplicateNameException extends \Exception
 {
 }
+

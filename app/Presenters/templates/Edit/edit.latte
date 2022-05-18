@@ -8,16 +8,17 @@
 <div>Views: {$post->views_count|truncate:256}</div>
 
 <div class="post">{$post->content}</div>
+<a class="ajax" n:href="deleteImage! $post->id">Smazat obrázek</a>
+{snippet imageSnippet}
 {if $post->image}
     <img src="{$basePath}/{$post->image}">
 {else}	
  <img src="{$basePath}/upload/noimg.jpg">
 {/if}
+{/snippet}
+
 <br>
-{if $post->image=="$basePath}/{$post->image}"}
-<a class="btn btn-danger btn-sm" n:href="Edit:DeleteImage! $post->id">Smazat obrázek</a>
-{else}	
- 
-{/if}
+
+
 {control postForm}
 
