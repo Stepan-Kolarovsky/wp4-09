@@ -121,4 +121,11 @@ final class PostFacade
 			->fetchPairs('id', 'name');
 		$this->template->categories = $this->database;
 	}
+	public function getPostbyCategoryId(int $categoryId)
+	{
+		return $this->database
+			->table('posts')
+			->where('category_id', $categoryId)
+			->order('created_at DESC');
+	}
 }

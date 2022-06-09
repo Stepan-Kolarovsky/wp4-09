@@ -10,9 +10,7 @@
 		<div class="date">  {$post->created_at|date:'F j, Y'}</div>
 		<h2><a class="text-black" n:href="Post:show $post->id">  {$post->title}</a></h2>
 		<div>  {$post->content|truncate:256}</div>
-		<div class="category"><h3>Kategorie:</h3>
-		<a n:href="Homepage:category $post->category_id">{$post->category->name}</a> 
-		</div>
+		{$post->category->name}
 		{if $post->image}
         <img class="img-fluid" src="{$basePath}/{$post->image}">
         {else}	
@@ -30,9 +28,7 @@
 		<div class="date">  {$post->created_at|date:'F j, Y'}</div>
 		<h2><a class="text-black" n:href="Post:show $post->id">  {$post->title}</a></h2>
 		<div>  {$post->content|truncate:256}</div>
-		<div class="category"><h3>Kategorie:</h3>
-		<a n:href="Homepage:category $post->category_id">{$post->category->name}</a> 
-		</div>
+		
 		{if $post->image}
         <img class="img-fluid" src="{$basePath}/{$post->image}">
         {else}	
